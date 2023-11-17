@@ -1,0 +1,43 @@
+[package]
+name = "discord_rpc"
+version = "0.1.0"
+description = "The stupidest way to set your own Discord RPC!"
+authors = ["WilliamAnimate"]
+license = ""
+repository = ""
+edition = "2021"
+
+[dependencies]
+discord-rich-presence = "0.2.3"
+lazy_static = "1.4.0"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies.tauri]
+version = "1.5"
+features = ["shell-open", "shell-open-api", "wry", "tauri-runtime-wry", "open"]
+default-features = false
+
+[build-dependencies.tauri-build]
+version = "1.5"
+features = []
+
+[features]
+custom-protocol = ["tauri/custom-protocol"]
+
+[profile.release]
+opt-level = 'z'
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true
+
+[profile.idfk]
+inherits = "release"
+opt-level = 'z'
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true
+
+[profile.release.package]
