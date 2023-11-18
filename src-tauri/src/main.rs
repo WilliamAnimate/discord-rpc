@@ -160,7 +160,6 @@ fn set_rich_presence() -> Result<(), Box<dyn std::error::Error>> {
         println!("starting rich presence");
         /*     oh my god rust is such a joke: the saga continues     */
         let client_id = CLIENT_ID.lock().unwrap();
-        dbg!(&client_id);
         let details = DETAILS.lock().unwrap();
         let state = STATE.lock().unwrap();
         let timestamp_enabled = TIMESTAMP_ENABLED.lock().unwrap();
@@ -172,6 +171,9 @@ fn set_rich_presence() -> Result<(), Box<dyn std::error::Error>> {
         let large_image_asset_text = LARGE_IMAGE_ASSET_TEXT.lock().unwrap();
         let small_image_asset_name = SMALL_IMAGE_ASSET_NAME.lock().unwrap();
         let small_image_asset_text = SMALL_IMAGE_ASSET_TEXT.lock().unwrap();
+
+        println!("Successfully obtained locks on all variables");
+        println!("client id is {}", client_id);
 
         let mut client = DiscordIpcClient::new(&client_id).expect("wtf");
 
@@ -185,12 +187,12 @@ fn set_rich_presence() -> Result<(), Box<dyn std::error::Error>> {
         let mut buttons_vec_list_thing = activity_base.clone().buttons(vec![activity::Button::new("", "")]);
 
         if *details != "" {
-            println!("details enabled, value is {}", &details);
+            println!("details enabled, value is '{}'", &details);
             activity_base = activity_base.details(&details);
         }
 
         if *state != "" {
-            println!("state enabled, value is {}", &state);
+            println!("state enabled, value is '{}'", &state);
             activity_base = activity_base.state(&state);
         }
 
@@ -201,13 +203,13 @@ fn set_rich_presence() -> Result<(), Box<dyn std::error::Error>> {
 
         if *button_one_text != "" {
             if *button_one_link != "" {
-                println!("button one enabled; text: {}, link: {}", &button_one_text, &button_one_link);
+                println!("button one enabled; text: '{}', link: '{}'", &button_one_text, &button_one_link);
                 let mut tmp_is_using_btn_two = false;
 
                 // TODO: fix indentation hell
                 if *button_two_text != "" {
                     if *button_two_link != "" {
-                        println!("button two enabled (alongside button one); text: {}, link: {}", &button_one_text, &button_one_link);
+                        println!("button two enabled (alongside button one); text: '{}', link: '{}'", &button_one_text, &button_one_link);
                         tmp_is_using_btn_two = true;
 
                         buttons_vec_list_thing = activity_base.clone().buttons(vec![activity::Button::new(&button_one_text, &button_one_link), activity::Button::new(&button_two_text, &button_two_link)]);
@@ -231,26 +233,26 @@ fn set_rich_presence() -> Result<(), Box<dyn std::error::Error>> {
         }
 
         if *large_image_asset_name != "" {
-            println!("large image name: {}", &large_image_asset_name);
+            println!("large image name: '{}'", &large_image_asset_name);
             activity_assets = activity_assets.large_image(&large_image_asset_name);
 
             if *large_image_asset_text != "" {
-                println!("large image text: {}", &large_image_asset_text);
+                println!("large image text: '{}'", &large_image_asset_text);
                 activity_assets = activity_assets.large_text(&large_image_asset_text);
             }
         }
 
         if *small_image_asset_name != "" {
-            println!("small image name: {}", &small_image_asset_name);
+            println!("small image name: '{}'", &small_image_asset_name);
             activity_assets = activity_assets.small_image(&small_image_asset_name);
 
             if *small_image_asset_text != "" {
-                println!("small image text: {}", &small_image_asset_text);
+                println!("small image text: '{}'", &small_image_asset_text);
                 activity_assets = activity_assets.small_text(&small_image_asset_text);
             }
         }
 
-        println!("setting RPC");
+        println!("all RPC assets set --- setting RPC");
         // you cant use ? for some reason, am i too stupid to figure this out?
         let _ = client.set_activity(activity_base.assets(activity_assets));
 
