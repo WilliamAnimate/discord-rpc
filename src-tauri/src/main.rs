@@ -44,6 +44,12 @@ fn dbg_show_console() {
 }
 
 #[tauri::command]
+fn check_if_rpc_is_up() -> bool {
+    let y: bool = *RPC_UP.lock().unwrap();
+    y
+}
+
+#[tauri::command]
 fn rpc_stop_thread() { unsafe {
     // let mut y = MUTLITHREAD_ASSIST_REQUEST_STOP_RPC.lock().unwrap();
     // *y = true;
@@ -128,6 +134,7 @@ fn main() {
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![
             dbg_show_console,
+            check_if_rpc_is_up,
             rpc_stop_thread,
             set_client_id,
             set_details,
@@ -150,8 +157,6 @@ fn main() {
 
 #[tauri::command]
 fn rich_presence_callback() {
-    // let _ = set_rich_presence(); // RUST REALLY SUCKS
-    // println!("{:?}", set_rich_presence(client_id));
     println!("{:?}", set_rich_presence());
 }
 
@@ -171,6 +176,12 @@ fn set_rich_presence() -> Result<(), Box<dyn std::error::Error>> {
         let large_image_asset_text = LARGE_IMAGE_ASSET_TEXT.lock().unwrap();
         let small_image_asset_name = SMALL_IMAGE_ASSET_NAME.lock().unwrap();
         let small_image_asset_text = SMALL_IMAGE_ASSET_TEXT.lock().unwrap();
+
+        {
+            // curly braces to do stuff with rpc_up, we don't want to hold the mutex for too long and stuff
+            let mut rpc_up = RPC_UP.lock().unwrap();
+            *rpc_up = true;
+        }
 
         println!("Successfully obtained locks on all variables");
         println!("application id is {}", application_id);
@@ -270,6 +281,11 @@ fn set_rich_presence() -> Result<(), Box<dyn std::error::Error>> {
                 if MULTITHREAD_ASSIST_REQUEST_STOP_RPC {
                     MULTITHREAD_ASSIST_REQUEST_STOP_RPC = false;
                     println!("RPC exiting!");
+                    let _ = client.close();
+
+                    // rust should automatically release the lock here...
+                    let mut rpc_up = RPC_UP.lock().unwrap();
+                    *rpc_up = false;
                     break;
                 }
             }
