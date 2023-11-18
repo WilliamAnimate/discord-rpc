@@ -15,19 +15,19 @@ use console::show_console;
 lazy_static! {
     /*     oh my god rust is such a joke: the beginning of the saga     */
 
-    static ref CLIENT_ID: Mutex<String> = Mutex::new("".to_string());
+    static ref CLIENT_ID: Mutex<String> = Mutex::new(String::new());
 
-    static ref DETAILS: Mutex<String> = Mutex::new("".to_string());
-    static ref STATE: Mutex<String> = Mutex::new("".to_string());
+    static ref DETAILS: Mutex<String> = Mutex::new(String::new());
+    static ref STATE: Mutex<String> = Mutex::new(String::new());
     static ref TIMESTAMP_ENABLED: Mutex<bool> = Mutex::new(false);
-    static ref BUTTON_ONE_TEXT: Mutex<String> = Mutex::new("".to_string());
-    static ref BUTTON_ONE_LINK: Mutex<String> = Mutex::new("".to_string());
-    static ref BUTTON_TWO_TEXT: Mutex<String> = Mutex::new("".to_string());
-    static ref BUTTON_TWO_LINK: Mutex<String> = Mutex::new("".to_string());
-    static ref LARGE_IMAGE_ASSET_NAME: Mutex<String> = Mutex::new("".to_string());
-    static ref LARGE_IMAGE_ASSET_TEXT: Mutex<String> = Mutex::new("".to_string());
-    static ref SMALL_IMAGE_ASSET_NAME: Mutex<String> = Mutex::new("".to_string());
-    static ref SMALL_IMAGE_ASSET_TEXT: Mutex<String> = Mutex::new("".to_string());
+    static ref BUTTON_ONE_TEXT: Mutex<String> = Mutex::new(String::new());
+    static ref BUTTON_ONE_LINK: Mutex<String> = Mutex::new(String::new());
+    static ref BUTTON_TWO_TEXT: Mutex<String> = Mutex::new(String::new());
+    static ref BUTTON_TWO_LINK: Mutex<String> = Mutex::new(String::new());
+    static ref LARGE_IMAGE_ASSET_NAME: Mutex<String> = Mutex::new(String::new());
+    static ref LARGE_IMAGE_ASSET_TEXT: Mutex<String> = Mutex::new(String::new());
+    static ref SMALL_IMAGE_ASSET_NAME: Mutex<String> = Mutex::new(String::new());
+    static ref SMALL_IMAGE_ASSET_TEXT: Mutex<String> = Mutex::new(String::new());
 
     static ref RPC_UP: Mutex<bool> = Mutex::new(false);
 }
