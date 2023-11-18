@@ -8,7 +8,7 @@
   },
   "package": {
     "productName": "discord_rpc",
-    "version": "0.1.0"
+    "version": "0.2.0"
   },
   "tauri": {
     "allowlist": {
@@ -37,7 +37,7 @@
       {
         "fullscreen": false,
         "resizable": false,
-        "title": "discord_rpc",
+        "title": "Discord RPC maker",
         "width": 1200,
         "height": 700
       }

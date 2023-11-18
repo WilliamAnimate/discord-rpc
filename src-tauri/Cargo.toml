@@ -1,6 +1,6 @@
 [package]
 name = "discord_rpc"
-version = "0.1.0"
+version = "0.2.0"
 description = "The stupidest way to set your own Discord RPC!"
 authors = ["WilliamAnimate"]
 license = ""
