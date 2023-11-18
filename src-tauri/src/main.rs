@@ -15,7 +15,7 @@ use console::show_console;
 lazy_static! {
     /*     oh my god rust is such a joke: the beginning of the saga     */
 
-    static ref CLIENT_ID: Mutex<String> = Mutex::new(String::new());
+    static ref APPLICATION_ID: Mutex<String> = Mutex::new(String::new());
 
     static ref DETAILS: Mutex<String> = Mutex::new(String::new());
     static ref STATE: Mutex<String> = Mutex::new(String::new());
@@ -52,7 +52,7 @@ fn rpc_stop_thread() { unsafe {
 
 #[tauri::command]
 fn set_client_id(x: &str) {
-    let mut y = CLIENT_ID.lock().unwrap();
+    let mut y = APPLICATION_ID.lock().unwrap();
     *y = x.to_string();
 }
 
@@ -159,7 +159,7 @@ fn set_rich_presence() -> Result<(), Box<dyn std::error::Error>> {
     std::thread::spawn(|| {
         println!("starting rich presence");
         /*     oh my god rust is such a joke: the saga continues     */
-        let client_id = CLIENT_ID.lock().unwrap();
+        let application_id = APPLICATION_ID.lock().unwrap();
         let details = DETAILS.lock().unwrap();
         let state = STATE.lock().unwrap();
         let timestamp_enabled = TIMESTAMP_ENABLED.lock().unwrap();
@@ -173,9 +173,9 @@ fn set_rich_presence() -> Result<(), Box<dyn std::error::Error>> {
         let small_image_asset_text = SMALL_IMAGE_ASSET_TEXT.lock().unwrap();
 
         println!("Successfully obtained locks on all variables");
-        println!("client id is {}", client_id);
+        println!("application id is {}", application_id);
 
-        let mut client = DiscordIpcClient::new(&client_id).expect("wtf");
+        let mut client = DiscordIpcClient::new(&application_id).expect("wtf");
 
         let _ = client.connect();
 
@@ -221,7 +221,7 @@ fn set_rich_presence() -> Result<(), Box<dyn std::error::Error>> {
                 // so if we're using button 2, then both the buttons are set in the above code, otherwise, it'll go down here.
                 // this is guarded behind an if statement for 2 reasons:
                 // - its here, so we don't set it above just for it to be overwritten instantly; performance sake.
-                // so if button 2 is set, it won't run this code, thus, no overwriting the two buttons
+                // - so if button 2 is set, it won't run this code, thus, no overwriting the two buttons
                 // if im somehow confused by this, this is my cue to talk to a therapist 💀
                 if !tmp_is_using_btn_two {
                     // not using btn2, so we only set it once.
