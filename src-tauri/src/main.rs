@@ -253,8 +253,16 @@ fn set_rich_presence() -> Result<(), Box<dyn std::error::Error>> {
         }
 
         println!("all RPC assets set --- setting RPC");
-        // you cant use ? for some reason, am i too stupid to figure this out?
-        let _ = client.set_activity(activity_base.assets(activity_assets));
+        if let Err(err) = client.set_activity(activity_base.assets(activity_assets)) {
+            eprintln!("Kernel panic - not syncing: {:?}", err);
+            // for some reason if dbg_show_console is set above then this doesn't work
+            // solution: print it once, show console then print it again
+            // 👍
+            dbg_show_console();
+            eprintln!("Kernel panic - not syncing: {:?}", err);
+
+            return; // get outta here, we panic!'d
+        }
 
         loop {
             unsafe {
