@@ -8,46 +8,42 @@
 	</head>
 	<body>
 		<img src="popcorn.png">
-		<h1 style="display: inline-block;">Discord RPC maker!</h1>
+		<h1 style="display: inline-block;">Discord RPC maker!<span style="visibility: collapse;">hihi</span></h1>
 
-		<br>
-
-		<div id="clientid" class="textbox half-sized" contenteditable="true">1173464118787846165</div>
-		<p>Application ID (required for rpc lol)</p>
-
-		<div class="border"></div>
-
-		<div id="details" class="textbox half-sized" contenteditable="true"></div>
-		<p>details</p>
-		<div id="state" class="textbox half-sized" contenteditable="true"></div>
-		<p>state</p>
-
-		<br>
-
-		<div id="btn1txt" class="textbox" contenteditable="true"></div>
-		<p>button one text</p>
-		<div id="btn1lnk" class="textbox" contenteditable="true"></div>
-		<p>button one link</p>
-		<div id="btn2txt" class="textbox" contenteditable="true"></div>
-		<p>button two text</p>
-		<div id="btn2lnk" class="textbox" contenteditable="true"></div>
-		<p>button two link</p>
-		<div id="largeimagename" class="textbox" contenteditable="true">beetlefr</div>
-		<p>large image name</p>
-		<div id="largeimagetext" class="textbox" contenteditable="true"></div>
-		<p>large image onhover text</p>
-		<div id="smallimagename" class="textbox" contenteditable="true">niko</div>
-		<p>small image name</p>
-		<div id="smallimagetext" class="textbox" contenteditable="true"></div>
-		<p>small image onhover text</p>
-
-		<br>
-		<input type="checkbox" id="timestamp_enabled">
-		<label for="timestamp_enabled"> Enable timestamp?</label>
-
-		<br><br>
 		<button onclick="setRPC()">set</button>
 		<button onclick="stopRPC()">stop</button>
+
+		<h2>Application ID (required for rpc lol)</h2>
+		<p>This field is required, but im too lazy to implement checking whether you actually add it or not.</p>
+		<div id="clientid" class="textbox half-sized" contenteditable="true">1173464118787846165</div>
+
+		<h2>details</h2>
+		<div id="details" class="textbox" contenteditable="true"></div>
+		<h2>state</h2>
+		<div id="state" class="textbox" contenteditable="true"></div>
+
+		<h2>button one text</h2>
+		<div id="btn1txt" class="textbox" contenteditable="true"></div>
+		<h2>button one link</h2>
+		<p>Please ensure that this value is a valid URL!</p>
+		<div id="btn1lnk" class="textbox" contenteditable="true"></div>
+		<h2>button two text</h2>
+		<div id="btn2txt" class="textbox" contenteditable="true"></div>
+		<h2>button two link</h2>
+		<p>Please ensure that this value is a valid URL!</p>
+		<div id="btn2lnk" class="textbox" contenteditable="true"></div>
+		<h2>large image name</h2>
+		<div id="largeimagename" class="textbox" contenteditable="true">beetlefr</div>
+		<h2>large image onhover text</h2>
+		<div id="largeimagetext" class="textbox" contenteditable="true"></div>
+		<h2>small image name</h2>
+		<div id="smallimagename" class="textbox" contenteditable="true">niko</div>
+		<h2>small image onhover text</h2>
+		<div id="smallimagetext" class="textbox" contenteditable="true"></div>
+
+		<br><br>
+		<input type="checkbox" id="timestamp_enabled">
+		<label for="timestamp_enabled"> Enable timestamp?</label>
 
 		<a target="_blank" href="https://github.com/WilliamAnimate/discord-rpc/wiki/How-to" style="position: fixed; right: 30px; top: 30px;">help!</a>
 		<button onclick="invoke('dbg_show_console')" style="position: fixed; right: 8px; bottom: 8px">Debug: give me the console!</button>
