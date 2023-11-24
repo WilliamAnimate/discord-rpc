@@ -15,6 +15,11 @@ To build in release mode (as in very small executable & fast), you run c.bat
 
 So far, I can verify that this works on Windows 10, however, it *should* be possible to compile for Linux and MacOS, since this repo *does not* contain any code specific to Windows.
 
+Snap store/flatpak discord **WILL NOT** work, until the crate (discord-rich-presence) fixes this on their end
+
+> [!NOTE]
+> you may have to remove all mentions of console.rs to compile for linux (unix) platforms
+
 ## Powered by
 
 [This crate](https://github.com/sardonicism-04/discord-rich-presence)
