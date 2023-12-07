@@ -8,8 +8,8 @@ To build in dev mode (development only) you run b.bat
 
 To build in release mode (as in very small executable & fast), you run c.bat
 
-> [!IMPORTANT]
-> You **WILL** need the nightly toolchain installed for release mode, simply run `rustup toolchain install nightly-2023-11-11 && rustup override set nightly-2023-11-11`
+> [!NOTE]
+> I have compiled the project with the nightly toolchain, via the command `rustup toolchain install nightly-2023-11-11 && rustup override set nightly-2023-11-11`
 
 ## Compiling for other platforms
 
@@ -19,6 +19,23 @@ Snap store/flatpak discord **WILL NOT** work, until the crate (discord-rich-pres
 
 > [!NOTE]
 > you may have to remove all mentions of console.rs to compile for linux (unix) platforms
+
+## Compiling on different platforms
+
+### Windows
+
+`cd src-tauri && cargo b`, but b.bat should do the job.
+
+### Linux
+
+> [!IMPORTANT]
+> Only tested on arch linux ~~(i use arch btw)~~
+>
+> also, you need to remove all mentions of console.rs in main.rs because im bad at rust
+
+`yay -S webkit2gtk` if you do not have it already (use `sudo apt-get install javascriptcoregtk-4.0` for debian based distros)
+
+`cd src-tauri && cargo b`
 
 ## Powered by
 
