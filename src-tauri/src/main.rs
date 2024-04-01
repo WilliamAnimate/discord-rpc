@@ -1,15 +1,13 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
-mod console;
+#[cfg(windows)] mod console;
+#[cfg(windows)] use console::show_console;
 
 use discord_rich_presence::{activity, DiscordIpc, DiscordIpcClient};
 use lazy_static::lazy_static;
 
 use std::sync::Mutex;
-
-#[cfg(windows)]
-use console::show_console;
 
 // static_mut is unsafe rust 💀💀💀
 lazy_static! {
@@ -38,9 +36,7 @@ static mut MULTITHREAD_ASSIST_REQUEST_STOP_RPC: bool = false;
 
 #[tauri::command]
 fn dbg_show_console() {
-    #[cfg(windows)] {
-        show_console();
-    }
+    #[cfg(windows)] show_console();
 }
 
 #[tauri::command]
